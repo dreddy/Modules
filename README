@@ -1,0 +1,3 @@
+Invoke 'make' as
+make scratch=m
+make sendipi=m

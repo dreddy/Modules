@@ -1,0 +1,640 @@
+
+saras.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <saras_update_ttsc>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	0f 31                	rdtsc  
+   6:	48 c1 e2 20          	shl    $0x20,%rdx
+   a:	89 c0                	mov    %eax,%eax
+   c:	48 09 c2             	or     %rax,%rdx
+   f:	48 89 57 08          	mov    %rdx,0x8(%rdi)
+  13:	c9                   	leaveq 
+  14:	c3                   	retq   
+
+0000000000000015 <get_ucode_sign>:
+  15:	55                   	push   %rbp
+  16:	48 89 e5             	mov    %rsp,%rbp
+  19:	b9 8b 00 00 00       	mov    $0x8b,%ecx
+  1e:	31 c0                	xor    %eax,%eax
+  20:	31 d2                	xor    %edx,%edx
+  22:	0f 30                	wrmsr  
+  24:	b8 01 00 00 00       	mov    $0x1,%eax
+  29:	0f a2                	cpuid  
+  2b:	b9 8b 00 00 00       	mov    $0x8b,%ecx
+  30:	0f 32                	rdmsr  
+  32:	89 17                	mov    %edx,(%rdi)
+  34:	c9                   	leaveq 
+  35:	c3                   	retq   
+
+0000000000000036 <saras_open>:
+  36:	55                   	push   %rbp
+  37:	31 c0                	xor    %eax,%eax
+  39:	48 89 e5             	mov    %rsp,%rbp
+  3c:	c9                   	leaveq 
+  3d:	c3                   	retq   
+
+000000000000003e <saras_release>:
+  3e:	55                   	push   %rbp
+  3f:	31 c0                	xor    %eax,%eax
+  41:	48 89 e5             	mov    %rsp,%rbp
+  44:	c9                   	leaveq 
+  45:	c3                   	retq   
+
+0000000000000046 <saras_mmap>:
+  46:	55                   	push   %rbp
+  47:	48 89 e5             	mov    %rsp,%rbp
+  4a:	53                   	push   %rbx
+  4b:	48 89 f3             	mov    %rsi,%rbx
+  4e:	48 83 ec 08          	sub    $0x8,%rsp
+  52:	48 89 df             	mov    %rbx,%rdi
+  55:	48 8b 76 08          	mov    0x8(%rsi),%rsi
+  59:	48 8b 4b 10          	mov    0x10(%rbx),%rcx
+  5d:	48 8b 93 90 00 00 00 	mov    0x90(%rbx),%rdx
+  64:	48 29 f1             	sub    %rsi,%rcx
+  67:	4c 8b 43 28          	mov    0x28(%rbx),%r8
+  6b:	e8 00 00 00 00       	callq  70 <saras_mmap+0x2a>
+  70:	89 c2                	mov    %eax,%edx
+  72:	b8 f5 ff ff ff       	mov    $0xfffffff5,%eax
+  77:	85 d2                	test   %edx,%edx
+  79:	75 0d                	jne    88 <saras_mmap+0x42>
+  7b:	48 c7 83 88 00 00 00 	movq   $0x0,0x88(%rbx)
+  82:	00 00 00 00 
+  86:	31 c0                	xor    %eax,%eax
+  88:	5a                   	pop    %rdx
+  89:	5b                   	pop    %rbx
+  8a:	c9                   	leaveq 
+  8b:	c3                   	retq   
+
+000000000000008c <saras_vm_close>:
+  8c:	55                   	push   %rbp
+  8d:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  94:	48 89 e5             	mov    %rsp,%rbp
+  97:	31 c0                	xor    %eax,%eax
+  99:	e8 00 00 00 00       	callq  9e <saras_vm_close+0x12>
+  9e:	c9                   	leaveq 
+  9f:	c3                   	retq   
+
+00000000000000a0 <saras_vm_open>:
+  a0:	55                   	push   %rbp
+  a1:	31 c0                	xor    %eax,%eax
+  a3:	48 8b 97 90 00 00 00 	mov    0x90(%rdi),%rdx
+  aa:	48 89 e5             	mov    %rsp,%rbp
+  ad:	48 8b 77 08          	mov    0x8(%rdi),%rsi
+  b1:	48 c1 e2 0c          	shl    $0xc,%rdx
+  b5:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  bc:	e8 00 00 00 00       	callq  c1 <saras_vm_open+0x21>
+  c1:	c9                   	leaveq 
+  c2:	c3                   	retq   
+
+00000000000000c3 <saras_read>:
+  c3:	55                   	push   %rbp
+  c4:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+  cb:	48 89 e5             	mov    %rsp,%rbp
+  ce:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  d5:	31 c0                	xor    %eax,%eax
+  d7:	e8 00 00 00 00       	callq  dc <saras_read+0x19>
+  dc:	31 c0                	xor    %eax,%eax
+  de:	c9                   	leaveq 
+  df:	c3                   	retq   
+
+00000000000000e0 <saras_show_version>:
+  e0:	55                   	push   %rbp
+  e1:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+  e8:	48 89 e5             	mov    %rsp,%rbp
+  eb:	48 89 d7             	mov    %rdx,%rdi
+  ee:	e8 00 00 00 00       	callq  f3 <saras_show_version+0x13>
+  f3:	b8 04 00 00 00       	mov    $0x4,%eax
+  f8:	c9                   	leaveq 
+  f9:	c3                   	retq   
+
+00000000000000fa <dump_state>:
+  fa:	55                   	push   %rbp
+  fb:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 102:	48 89 e5             	mov    %rsp,%rbp
+ 105:	41 57                	push   %r15
+ 107:	0f 20 c0             	mov    %cr0,%rax
+ 10a:	0f 20 d2             	mov    %cr2,%rdx
+ 10d:	0f 20 d9             	mov    %cr3,%rcx
+ 110:	41 0f 20 e7          	mov    %cr4,%r15
+ 114:	41 56                	push   %r14
+ 116:	41 55                	push   %r13
+ 118:	41 54                	push   %r12
+ 11a:	53                   	push   %rbx
+ 11b:	48 81 ec 88 00 00 00 	sub    $0x88,%rsp
+ 122:	48 89 4d 98          	mov    %rcx,-0x68(%rbp)
+ 126:	48 89 55 a0          	mov    %rdx,-0x60(%rbp)
+ 12a:	48 89 45 a8          	mov    %rax,-0x58(%rbp)
+ 12e:	41 0f 21 c6          	mov    %db0,%r14
+ 132:	41 0f 21 cd          	mov    %db1,%r13
+ 136:	0f 21 d3             	mov    %db2,%rbx
+ 139:	0f 21 de             	mov    %db3,%rsi
+ 13c:	0f 21 f0             	mov    %db6,%rax
+ 13f:	0f 21 fa             	mov    %db7,%rdx
+ 142:	48 89 95 78 ff ff ff 	mov    %rdx,-0x88(%rbp)
+ 149:	48 89 45 80          	mov    %rax,-0x80(%rbp)
+ 14d:	48 89 75 88          	mov    %rsi,-0x78(%rbp)
+ 151:	48 89 5d 90          	mov    %rbx,-0x70(%rbp)
+ 155:	48 8c d9             	mov    %ds,%rcx
+ 158:	48 8c c9             	mov    %cs,%rcx
+ 15b:	48 8c c1             	mov    %es,%rcx
+ 15e:	48 8c e1             	mov    %fs,%rcx
+ 161:	48 8c e9             	mov    %gs,%rcx
+ 164:	48 89 95 50 ff ff ff 	mov    %rdx,-0xb0(%rbp)
+ 16b:	48 89 8d 70 ff ff ff 	mov    %rcx,-0x90(%rbp)
+ 172:	48 89 85 58 ff ff ff 	mov    %rax,-0xa8(%rbp)
+ 179:	48 89 b5 60 ff ff ff 	mov    %rsi,-0xa0(%rbp)
+ 180:	48 89 9d 68 ff ff ff 	mov    %rbx,-0x98(%rbp)
+ 187:	31 c0                	xor    %eax,%eax
+ 189:	31 db                	xor    %ebx,%ebx
+ 18b:	0f 01 4d c0          	sidt   -0x40(%rbp)
+ 18f:	0f 01 45 b0          	sgdt   -0x50(%rbp)
+ 193:	0f b7 75 c0          	movzwl -0x40(%rbp),%esi
+ 197:	e8 00 00 00 00       	callq  19c <dump_state+0xa2>
+ 19c:	48 8b 75 c2          	mov    -0x3e(%rbp),%rsi
+ 1a0:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 1a7:	31 c0                	xor    %eax,%eax
+ 1a9:	e8 00 00 00 00       	callq  1ae <dump_state+0xb4>
+ 1ae:	0f b7 75 b0          	movzwl -0x50(%rbp),%esi
+ 1b2:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 1b9:	31 c0                	xor    %eax,%eax
+ 1bb:	e8 00 00 00 00       	callq  1c0 <dump_state+0xc6>
+ 1c0:	48 8b 75 b2          	mov    -0x4e(%rbp),%rsi
+ 1c4:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 1cb:	31 c0                	xor    %eax,%eax
+ 1cd:	e8 00 00 00 00       	callq  1d2 <dump_state+0xd8>
+ 1d2:	eb 6b                	jmp    23f <dump_state+0x145>
+ 1d4:	31 c0                	xor    %eax,%eax
+ 1d6:	4c 63 e3             	movslq %ebx,%r12
+ 1d9:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 1e0:	49 c1 e4 03          	shl    $0x3,%r12
+ 1e4:	4c 03 65 b2          	add    -0x4e(%rbp),%r12
+ 1e8:	49 8b 34 24          	mov    (%r12),%rsi
+ 1ec:	e8 00 00 00 00       	callq  1f1 <dump_state+0xf7>
+ 1f1:	41 f6 44 24 05 10    	testb  $0x10,0x5(%r12)
+ 1f7:	74 28                	je     221 <dump_state+0x127>
+ 1f9:	31 c0                	xor    %eax,%eax
+ 1fb:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 202:	e8 00 00 00 00       	callq  207 <dump_state+0x10d>
+ 207:	41 f6 44 24 06 20    	testb  $0x20,0x6(%r12)
+ 20d:	74 20                	je     22f <dump_state+0x135>
+ 20f:	89 de                	mov    %ebx,%esi
+ 211:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 218:	31 c0                	xor    %eax,%eax
+ 21a:	e8 00 00 00 00       	callq  21f <dump_state+0x125>
+ 21f:	eb 0e                	jmp    22f <dump_state+0x135>
+ 221:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 228:	31 c0                	xor    %eax,%eax
+ 22a:	e8 00 00 00 00       	callq  22f <dump_state+0x135>
+ 22f:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 236:	31 c0                	xor    %eax,%eax
+ 238:	ff c3                	inc    %ebx
+ 23a:	e8 00 00 00 00       	callq  23f <dump_state+0x145>
+ 23f:	0f b7 45 b0          	movzwl -0x50(%rbp),%eax
+ 243:	ff c0                	inc    %eax
+ 245:	c1 f8 03             	sar    $0x3,%eax
+ 248:	39 c3                	cmp    %eax,%ebx
+ 24a:	7c 88                	jl     1d4 <dump_state+0xda>
+ 24c:	48 8b 75 a8          	mov    -0x58(%rbp),%rsi
+ 250:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 257:	31 c0                	xor    %eax,%eax
+ 259:	e8 00 00 00 00       	callq  25e <dump_state+0x164>
+ 25e:	48 8b 75 a0          	mov    -0x60(%rbp),%rsi
+ 262:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 269:	31 c0                	xor    %eax,%eax
+ 26b:	e8 00 00 00 00       	callq  270 <dump_state+0x176>
+ 270:	48 8b 75 98          	mov    -0x68(%rbp),%rsi
+ 274:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 27b:	31 c0                	xor    %eax,%eax
+ 27d:	e8 00 00 00 00       	callq  282 <dump_state+0x188>
+ 282:	4c 89 fe             	mov    %r15,%rsi
+ 285:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 28c:	31 c0                	xor    %eax,%eax
+ 28e:	e8 00 00 00 00       	callq  293 <dump_state+0x199>
+ 293:	4c 89 f6             	mov    %r14,%rsi
+ 296:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 29d:	31 c0                	xor    %eax,%eax
+ 29f:	e8 00 00 00 00       	callq  2a4 <dump_state+0x1aa>
+ 2a4:	4c 89 ee             	mov    %r13,%rsi
+ 2a7:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 2ae:	31 c0                	xor    %eax,%eax
+ 2b0:	e8 00 00 00 00       	callq  2b5 <dump_state+0x1bb>
+ 2b5:	48 8b 75 90          	mov    -0x70(%rbp),%rsi
+ 2b9:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 2c0:	31 c0                	xor    %eax,%eax
+ 2c2:	e8 00 00 00 00       	callq  2c7 <dump_state+0x1cd>
+ 2c7:	48 8b 75 88          	mov    -0x78(%rbp),%rsi
+ 2cb:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 2d2:	31 c0                	xor    %eax,%eax
+ 2d4:	e8 00 00 00 00       	callq  2d9 <dump_state+0x1df>
+ 2d9:	48 8b 75 80          	mov    -0x80(%rbp),%rsi
+ 2dd:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 2e4:	31 c0                	xor    %eax,%eax
+ 2e6:	e8 00 00 00 00       	callq  2eb <dump_state+0x1f1>
+ 2eb:	48 8b b5 78 ff ff ff 	mov    -0x88(%rbp),%rsi
+ 2f2:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 2f9:	31 c0                	xor    %eax,%eax
+ 2fb:	e8 00 00 00 00       	callq  300 <dump_state+0x206>
+ 300:	48 8b b5 70 ff ff ff 	mov    -0x90(%rbp),%rsi
+ 307:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 30e:	31 c0                	xor    %eax,%eax
+ 310:	e8 00 00 00 00       	callq  315 <dump_state+0x21b>
+ 315:	48 8b b5 68 ff ff ff 	mov    -0x98(%rbp),%rsi
+ 31c:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 323:	31 c0                	xor    %eax,%eax
+ 325:	e8 00 00 00 00       	callq  32a <dump_state+0x230>
+ 32a:	48 8b b5 60 ff ff ff 	mov    -0xa0(%rbp),%rsi
+ 331:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 338:	31 c0                	xor    %eax,%eax
+ 33a:	e8 00 00 00 00       	callq  33f <dump_state+0x245>
+ 33f:	48 8b b5 58 ff ff ff 	mov    -0xa8(%rbp),%rsi
+ 346:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 34d:	31 c0                	xor    %eax,%eax
+ 34f:	e8 00 00 00 00       	callq  354 <dump_state+0x25a>
+ 354:	48 8b b5 50 ff ff ff 	mov    -0xb0(%rbp),%rsi
+ 35b:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 362:	31 c0                	xor    %eax,%eax
+ 364:	e8 00 00 00 00       	callq  369 <dump_state+0x26f>
+ 369:	48 81 c4 88 00 00 00 	add    $0x88,%rsp
+ 370:	5b                   	pop    %rbx
+ 371:	41 5c                	pop    %r12
+ 373:	41 5d                	pop    %r13
+ 375:	41 5e                	pop    %r14
+ 377:	41 5f                	pop    %r15
+ 379:	c9                   	leaveq 
+ 37a:	c3                   	retq   
+
+000000000000037b <saras_write>:
+ 37b:	55                   	push   %rbp
+ 37c:	31 c0                	xor    %eax,%eax
+ 37e:	48 89 e5             	mov    %rsp,%rbp
+ 381:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 388:	41 57                	push   %r15
+ 38a:	41 56                	push   %r14
+ 38c:	41 55                	push   %r13
+ 38e:	49 89 d5             	mov    %rdx,%r13
+ 391:	41 54                	push   %r12
+ 393:	4d 89 ef             	mov    %r13,%r15
+ 396:	53                   	push   %rbx
+ 397:	48 89 f3             	mov    %rsi,%rbx
+ 39a:	48 83 ec 58          	sub    $0x58,%rsp
+ 39e:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 3a5:	c7 45 cc 00 00 00 00 	movl   $0x0,-0x34(%rbp)
+ 3ac:	e8 00 00 00 00       	callq  3b1 <saras_write+0x36>
+ 3b1:	49 83 fd 04          	cmp    $0x4,%r13
+ 3b5:	77 12                	ja     3c9 <saras_write+0x4e>
+ 3b7:	48 8d 7d cc          	lea    -0x34(%rbp),%rdi
+ 3bb:	44 89 ea             	mov    %r13d,%edx
+ 3be:	48 89 de             	mov    %rbx,%rsi
+ 3c1:	e8 00 00 00 00       	callq  3c6 <saras_write+0x4b>
+ 3c6:	49 89 c7             	mov    %rax,%r15
+ 3c9:	8b 45 cc             	mov    -0x34(%rbp),%eax
+ 3cc:	83 f8 45             	cmp    $0x45,%eax
+ 3cf:	74 56                	je     427 <saras_write+0xac>
+ 3d1:	77 28                	ja     3fb <saras_write+0x80>
+ 3d3:	83 f8 41             	cmp    $0x41,%eax
+ 3d6:	0f 84 92 00 00 00    	je     46e <saras_write+0xf3>
+ 3dc:	77 10                	ja     3ee <saras_write+0x73>
+ 3de:	83 f8 10             	cmp    $0x10,%eax
+ 3e1:	74 5f                	je     442 <saras_write+0xc7>
+ 3e3:	83 f8 11             	cmp    $0x11,%eax
+ 3e6:	0f 85 c7 02 00 00    	jne    6b3 <saras_write+0x338>
+ 3ec:	eb 69                	jmp    457 <saras_write+0xdc>
+ 3ee:	83 f8 43             	cmp    $0x43,%eax
+ 3f1:	74 40                	je     433 <saras_write+0xb8>
+ 3f3:	0f 87 38 01 00 00    	ja     531 <saras_write+0x1b6>
+ 3f9:	eb 7d                	jmp    478 <saras_write+0xfd>
+ 3fb:	83 f8 63             	cmp    $0x63,%eax
+ 3fe:	74 33                	je     433 <saras_write+0xb8>
+ 400:	77 0c                	ja     40e <saras_write+0x93>
+ 402:	83 f8 61             	cmp    $0x61,%eax
+ 405:	74 67                	je     46e <saras_write+0xf3>
+ 407:	77 6f                	ja     478 <saras_write+0xfd>
+ 409:	83 f8 46             	cmp    $0x46,%eax
+ 40c:	eb 0e                	jmp    41c <saras_write+0xa1>
+ 40e:	83 f8 65             	cmp    $0x65,%eax
+ 411:	74 14                	je     427 <saras_write+0xac>
+ 413:	0f 82 18 01 00 00    	jb     531 <saras_write+0x1b6>
+ 419:	83 f8 66             	cmp    $0x66,%eax
+ 41c:	0f 85 91 02 00 00    	jne    6b3 <saras_write+0x338>
+ 422:	e9 bf 01 00 00       	jmpq   5e6 <saras_write+0x26b>
+ 427:	48 c7 c3 00 00 00 00 	mov    $0x0,%rbx
+ 42e:	e9 8e 01 00 00       	jmpq   5c1 <saras_write+0x246>
+ 433:	83 cb ff             	or     $0xffffffffffffffff,%ebx
+ 436:	4c 8b 25 00 00 00 00 	mov    0x0(%rip),%r12        # 43d <saras_write+0xc2>
+ 43d:	e9 92 00 00 00       	jmpq   4d4 <saras_write+0x159>
+ 442:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 449:	31 c0                	xor    %eax,%eax
+ 44b:	e8 00 00 00 00       	callq  450 <saras_write+0xd5>
+ 450:	eb fe                	jmp    450 <saras_write+0xd5>
+ 452:	e9 cf 02 00 00       	jmpq   726 <saras_write+0x3ab>
+ 457:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 45e:	31 c0                	xor    %eax,%eax
+ 460:	e8 00 00 00 00       	callq  465 <saras_write+0xea>
+ 465:	fb                   	sti    
+ 466:	0f 0b                	ud2    
+ 468:	fa                   	cli    
+ 469:	e9 b8 02 00 00       	jmpq   726 <saras_write+0x3ab>
+ 46e:	e8 00 00 00 00       	callq  473 <saras_write+0xf8>
+ 473:	e9 ae 02 00 00       	jmpq   726 <saras_write+0x3ab>
+ 478:	b9 80 04 00 00       	mov    $0x480,%ecx
+ 47d:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 484:	0f 32                	rdmsr  
+ 486:	48 c1 e2 20          	shl    $0x20,%rdx
+ 48a:	89 c6                	mov    %eax,%esi
+ 48c:	31 c0                	xor    %eax,%eax
+ 48e:	48 09 d6             	or     %rdx,%rsi
+ 491:	e8 00 00 00 00       	callq  496 <saras_write+0x11b>
+ 496:	b9 3a 00 00 00       	mov    $0x3a,%ecx
+ 49b:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 4a2:	0f 32                	rdmsr  
+ 4a4:	48 c1 e2 20          	shl    $0x20,%rdx
+ 4a8:	89 c6                	mov    %eax,%esi
+ 4aa:	31 c0                	xor    %eax,%eax
+ 4ac:	48 09 d6             	or     %rdx,%rsi
+ 4af:	e8 00 00 00 00       	callq  4b4 <saras_write+0x139>
+ 4b4:	e9 6d 02 00 00       	jmpq   726 <saras_write+0x3ab>
+ 4b9:	48 63 d3             	movslq %ebx,%rdx
+ 4bc:	31 c9                	xor    %ecx,%ecx
+ 4be:	48 8d 14 95 00 00 00 	lea    0x0(,%rdx,4),%rdx
+ 4c5:	00 
+ 4c6:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 4cd:	89 c7                	mov    %eax,%edi
+ 4cf:	e8 00 00 00 00       	callq  4d4 <saras_write+0x159>
+ 4d4:	ff c3                	inc    %ebx
+ 4d6:	be 40 00 00 00       	mov    $0x40,%esi
+ 4db:	48 63 d3             	movslq %ebx,%rdx
+ 4de:	4c 89 e7             	mov    %r12,%rdi
+ 4e1:	e8 00 00 00 00       	callq  4e6 <saras_write+0x16b>
+ 4e6:	89 c3                	mov    %eax,%ebx
+ 4e8:	3b 05 00 00 00 00    	cmp    0x0(%rip),%eax        # 4ee <saras_write+0x173>
+ 4ee:	7c c9                	jl     4b9 <saras_write+0x13e>
+ 4f0:	83 cb ff             	or     $0xffffffffffffffff,%ebx
+ 4f3:	eb 1a                	jmp    50f <saras_write+0x194>
+ 4f5:	48 63 d3             	movslq %ebx,%rdx
+ 4f8:	89 c6                	mov    %eax,%esi
+ 4fa:	8b 14 95 00 00 00 00 	mov    0x0(,%rdx,4),%edx
+ 501:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 508:	31 c0                	xor    %eax,%eax
+ 50a:	e8 00 00 00 00       	callq  50f <saras_write+0x194>
+ 50f:	ff c3                	inc    %ebx
+ 511:	be 40 00 00 00       	mov    $0x40,%esi
+ 516:	48 63 d3             	movslq %ebx,%rdx
+ 519:	4c 89 e7             	mov    %r12,%rdi
+ 51c:	e8 00 00 00 00       	callq  521 <saras_write+0x1a6>
+ 521:	89 c3                	mov    %eax,%ebx
+ 523:	3b 05 00 00 00 00    	cmp    0x0(%rip),%eax        # 529 <saras_write+0x1ae>
+ 529:	0f 8d f7 01 00 00    	jge    726 <saras_write+0x3ab>
+ 52f:	eb c4                	jmp    4f5 <saras_write+0x17a>
+ 531:	0f 01 4d a0          	sidt   -0x60(%rbp)
+ 535:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 53c:	0f b7 75 a0          	movzwl -0x60(%rbp),%esi
+ 540:	31 c0                	xor    %eax,%eax
+ 542:	31 db                	xor    %ebx,%ebx
+ 544:	e8 00 00 00 00       	callq  549 <saras_write+0x1ce>
+ 549:	48 8b 75 a2          	mov    -0x5e(%rbp),%rsi
+ 54d:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 554:	31 c0                	xor    %eax,%eax
+ 556:	e8 00 00 00 00       	callq  55b <saras_write+0x1e0>
+ 55b:	eb 36                	jmp    593 <saras_write+0x218>
+ 55d:	48 63 c3             	movslq %ebx,%rax
+ 560:	89 de                	mov    %ebx,%esi
+ 562:	48 c1 e0 04          	shl    $0x4,%rax
+ 566:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 56d:	48 03 45 a2          	add    -0x5e(%rbp),%rax
+ 571:	ff c3                	inc    %ebx
+ 573:	8b 50 08             	mov    0x8(%rax),%edx
+ 576:	0f b7 08             	movzwl (%rax),%ecx
+ 579:	48 c1 e2 20          	shl    $0x20,%rdx
+ 57d:	0f b7 40 06          	movzwl 0x6(%rax),%eax
+ 581:	48 01 ca             	add    %rcx,%rdx
+ 584:	c1 e0 10             	shl    $0x10,%eax
+ 587:	48 98                	cltq   
+ 589:	48 01 c2             	add    %rax,%rdx
+ 58c:	31 c0                	xor    %eax,%eax
+ 58e:	e8 00 00 00 00       	callq  593 <saras_write+0x218>
+ 593:	0f b7 45 a0          	movzwl -0x60(%rbp),%eax
+ 597:	ff c0                	inc    %eax
+ 599:	c1 f8 04             	sar    $0x4,%eax
+ 59c:	39 c3                	cmp    %eax,%ebx
+ 59e:	0f 8d 82 01 00 00    	jge    726 <saras_write+0x3ab>
+ 5a4:	eb b7                	jmp    55d <saras_write+0x1e2>
+ 5a6:	8b 93 48 02 00 00    	mov    0x248(%rbx),%edx
+ 5ac:	48 81 c6 18 02 00 00 	add    $0x218,%rsi
+ 5b3:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 5ba:	31 c0                	xor    %eax,%eax
+ 5bc:	e8 00 00 00 00       	callq  5c1 <saras_write+0x246>
+ 5c1:	48 8b 83 d8 01 00 00 	mov    0x1d8(%rbx),%rax
+ 5c8:	48 89 45 b8          	mov    %rax,-0x48(%rbp)
+ 5cc:	48 8b 75 b8          	mov    -0x48(%rbp),%rsi
+ 5d0:	48 8d 9e 28 fe ff ff 	lea    -0x1d8(%rsi),%rbx
+ 5d7:	48 81 fb 00 00 00 00 	cmp    $0x0,%rbx
+ 5de:	0f 84 42 01 00 00    	je     726 <saras_write+0x3ab>
+ 5e4:	eb c0                	jmp    5a6 <saras_write+0x22b>
+ 5e6:	65 8b 04 25 00 00 00 	mov    %gs:0x0,%eax
+ 5ed:	00 
+ 5ee:	c7 45 9c 03 00 00 00 	movl   $0x3,-0x64(%rbp)
+ 5f5:	89 45 98             	mov    %eax,-0x68(%rbp)
+ 5f8:	e9 b0 00 00 00       	jmpq   6ad <saras_write+0x332>
+ 5fd:	44 3b 65 98          	cmp    -0x68(%rbp),%r12d
+ 601:	74 7c                	je     67f <saras_write+0x304>
+ 603:	0f 31                	rdtsc  
+ 605:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+ 60c:	89 d1                	mov    %edx,%ecx
+ 60e:	49 63 dc             	movslq %r12d,%rbx
+ 611:	48 c1 e1 20          	shl    $0x20,%rcx
+ 615:	48 c1 e3 04          	shl    $0x4,%rbx
+ 619:	89 c0                	mov    %eax,%eax
+ 61b:	48 8d 93 00 00 00 00 	lea    0x0(%rbx),%rdx
+ 622:	48 09 c1             	or     %rax,%rcx
+ 625:	44 89 f7             	mov    %r14d,%edi
+ 628:	48 89 8b 00 00 00 00 	mov    %rcx,0x0(%rbx)
+ 62f:	b9 01 00 00 00       	mov    $0x1,%ecx
+ 634:	e8 00 00 00 00       	callq  639 <saras_write+0x2be>
+ 639:	89 c6                	mov    %eax,%esi
+ 63b:	0f 31                	rdtsc  
+ 63d:	85 f6                	test   %esi,%esi
+ 63f:	74 10                	je     651 <saras_write+0x2d6>
+ 641:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 648:	31 c0                	xor    %eax,%eax
+ 64a:	e8 00 00 00 00       	callq  64f <saras_write+0x2d4>
+ 64f:	eb 2e                	jmp    67f <saras_write+0x304>
+ 651:	48 8b b3 00 00 00 00 	mov    0x0(%rbx),%rsi
+ 658:	89 c0                	mov    %eax,%eax
+ 65a:	48 8b 8b 00 00 00 00 	mov    0x0(%rbx),%rcx
+ 661:	48 c1 e2 20          	shl    $0x20,%rdx
+ 665:	48 29 f1             	sub    %rsi,%rcx
+ 668:	48 09 c2             	or     %rax,%rdx
+ 66b:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 672:	48 29 f2             	sub    %rsi,%rdx
+ 675:	31 c0                	xor    %eax,%eax
+ 677:	44 89 f6             	mov    %r14d,%esi
+ 67a:	e8 00 00 00 00       	callq  67f <saras_write+0x304>
+ 67f:	41 ff c4             	inc    %r12d
+ 682:	be 40 00 00 00       	mov    $0x40,%esi
+ 687:	49 63 d4             	movslq %r12d,%rdx
+ 68a:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 691 <saras_write+0x316>
+ 691:	e8 00 00 00 00       	callq  696 <saras_write+0x31b>
+ 696:	49 89 c6             	mov    %rax,%r14
+ 699:	41 89 c4             	mov    %eax,%r12d
+ 69c:	3b 05 00 00 00 00    	cmp    0x0(%rip),%eax        # 6a2 <saras_write+0x327>
+ 6a2:	0f 8c 55 ff ff ff    	jl     5fd <saras_write+0x282>
+ 6a8:	ff 4d 9c             	decl   -0x64(%rbp)
+ 6ab:	74 79                	je     726 <saras_write+0x3ab>
+ 6ad:	41 83 cc ff          	or     $0xffffffffffffffff,%r12d
+ 6b1:	eb cc                	jmp    67f <saras_write+0x304>
+ 6b3:	65 48 8b 1c 25 00 00 	mov    %gs:0x0,%rbx
+ 6ba:	00 00 
+ 6bc:	48 8b bb 10 02 00 00 	mov    0x210(%rbx),%rdi
+ 6c3:	48 83 c7 60          	add    $0x60,%rdi
+ 6c7:	e8 00 00 00 00       	callq  6cc <saras_write+0x351>
+ 6cc:	48 8b b3 10 02 00 00 	mov    0x210(%rbx),%rsi
+ 6d3:	8b 55 cc             	mov    -0x34(%rbp),%edx
+ 6d6:	45 31 c9             	xor    %r9d,%r9d
+ 6d9:	45 31 c0             	xor    %r8d,%r8d
+ 6dc:	b9 00 02 00 00       	mov    $0x200,%ecx
+ 6e1:	48 8d 45 c0          	lea    -0x40(%rbp),%rax
+ 6e5:	48 89 df             	mov    %rbx,%rdi
+ 6e8:	48 c7 44 24 08 00 00 	movq   $0x0,0x8(%rsp)
+ 6ef:	00 00 
+ 6f1:	48 89 04 24          	mov    %rax,(%rsp)
+ 6f5:	e8 00 00 00 00       	callq  6fa <saras_write+0x37f>
+ 6fa:	48 8b bb 10 02 00 00 	mov    0x210(%rbx),%rdi
+ 701:	41 89 c5             	mov    %eax,%r13d
+ 704:	48 83 c7 60          	add    $0x60,%rdi
+ 708:	e8 00 00 00 00       	callq  70d <saras_write+0x392>
+ 70d:	44 89 ea             	mov    %r13d,%edx
+ 710:	8b 75 cc             	mov    -0x34(%rbp),%esi
+ 713:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 71a:	31 c0                	xor    %eax,%eax
+ 71c:	e8 00 00 00 00       	callq  721 <saras_write+0x3a6>
+ 721:	49 63 c5             	movslq %r13d,%rax
+ 724:	eb 09                	jmp    72f <saras_write+0x3b4>
+ 726:	4d 63 ff             	movslq %r15d,%r15
+ 729:	4c 89 e8             	mov    %r13,%rax
+ 72c:	4c 29 f8             	sub    %r15,%rax
+ 72f:	48 83 c4 58          	add    $0x58,%rsp
+ 733:	5b                   	pop    %rbx
+ 734:	41 5c                	pop    %r12
+ 736:	41 5d                	pop    %r13
+ 738:	41 5e                	pop    %r14
+ 73a:	41 5f                	pop    %r15
+ 73c:	c9                   	leaveq 
+ 73d:	c3                   	retq   
+
+Disassembly of section .init.text:
+
+0000000000000000 <init_module>:
+   0:	55                   	push   %rbp
+   1:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+   8:	48 89 e5             	mov    %rsp,%rbp
+   b:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  12:	53                   	push   %rbx
+  13:	31 c0                	xor    %eax,%eax
+  15:	48 83 ec 08          	sub    $0x8,%rsp
+  19:	e8 00 00 00 00       	callq  1e <init_module+0x1e>
+  1e:	31 f6                	xor    %esi,%esi
+  20:	48 c7 c1 00 00 00 00 	mov    $0x0,%rcx
+  27:	ba 01 00 00 00       	mov    $0x1,%edx
+  2c:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  33:	e8 00 00 00 00       	callq  38 <init_module+0x38>
+  38:	89 c3                	mov    %eax,%ebx
+  3a:	85 c0                	test   %eax,%eax
+  3c:	79 15                	jns    53 <init_module+0x53>
+  3e:	89 c6                	mov    %eax,%esi
+  40:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  47:	31 c0                	xor    %eax,%eax
+  49:	e8 00 00 00 00       	callq  4e <init_module+0x4e>
+  4e:	e9 06 01 00 00       	jmpq   159 <init_module+0x159>
+  53:	8b 35 00 00 00 00    	mov    0x0(%rip),%esi        # 59 <init_module+0x59>
+  59:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  60:	89 f2                	mov    %esi,%edx
+  62:	31 c0                	xor    %eax,%eax
+  64:	81 e2 ff ff 0f 00    	and    $0xfffff,%edx
+  6a:	c1 ee 14             	shr    $0x14,%esi
+  6d:	e8 00 00 00 00       	callq  72 <init_module+0x72>
+  72:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+  79:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  80:	e8 00 00 00 00       	callq  85 <init_module+0x85>
+  85:	48 c7 05 00 00 00 00 	movq   $0x0,0x0(%rip)        # 90 <init_module+0x90>
+  8c:	00 00 00 00 
+  90:	ba 01 00 00 00       	mov    $0x1,%edx
+  95:	8b 35 00 00 00 00    	mov    0x0(%rip),%esi        # 9b <init_module+0x9b>
+  9b:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  a2:	e8 00 00 00 00       	callq  a7 <init_module+0xa7>
+  a7:	85 c0                	test   %eax,%eax
+  a9:	79 11                	jns    bc <init_module+0xbc>
+  ab:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  b2:	e8 00 00 00 00       	callq  b7 <init_module+0xb7>
+  b7:	e9 8d 00 00 00       	jmpq   149 <init_module+0x149>
+  bc:	48 c7 c2 00 00 00 00 	mov    $0x0,%rdx
+  c3:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+  ca:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  d1:	e8 00 00 00 00       	callq  d6 <init_module+0xd6>
+  d6:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # dd <init_module+0xdd>
+  dd:	48 3d 00 f0 ff ff    	cmp    $0xfffffffffffff000,%rax
+  e3:	76 12                	jbe    f7 <init_module+0xf7>
+  e5:	89 c3                	mov    %eax,%ebx
+  e7:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  ee:	31 c0                	xor    %eax,%eax
+  f0:	e8 00 00 00 00       	callq  f5 <init_module+0xf5>
+  f5:	eb 52                	jmp    149 <init_module+0x149>
+  f7:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+  fe:	48 89 c7             	mov    %rax,%rdi
+ 101:	e8 00 00 00 00       	callq  106 <init_module+0x106>
+ 106:	89 c3                	mov    %eax,%ebx
+ 108:	85 c0                	test   %eax,%eax
+ 10a:	74 1c                	je     128 <init_module+0x128>
+ 10c:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+ 113:	31 c0                	xor    %eax,%eax
+ 115:	e8 00 00 00 00       	callq  11a <init_module+0x11a>
+ 11a:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 121 <init_module+0x121>
+ 121:	e8 00 00 00 00       	callq  126 <init_module+0x126>
+ 126:	eb 21                	jmp    149 <init_module+0x149>
+ 128:	49 c7 c0 00 00 00 00 	mov    $0x0,%r8
+ 12f:	31 c9                	xor    %ecx,%ecx
+ 131:	8b 15 00 00 00 00    	mov    0x0(%rip),%edx        # 137 <init_module+0x137>
+ 137:	31 f6                	xor    %esi,%esi
+ 139:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 140 <init_module+0x140>
+ 140:	31 c0                	xor    %eax,%eax
+ 142:	e8 00 00 00 00       	callq  147 <init_module+0x147>
+ 147:	eb 10                	jmp    159 <init_module+0x159>
+ 149:	be 01 00 00 00       	mov    $0x1,%esi
+ 14e:	8b 3d 00 00 00 00    	mov    0x0(%rip),%edi        # 154 <init_module+0x154>
+ 154:	e8 00 00 00 00       	callq  159 <init_module+0x159>
+ 159:	89 d8                	mov    %ebx,%eax
+ 15b:	59                   	pop    %rcx
+ 15c:	5b                   	pop    %rbx
+ 15d:	c9                   	leaveq 
+ 15e:	c3                   	retq   
+
+Disassembly of section .exit.text:
+
+0000000000000000 <cleanup_module>:
+   0:	55                   	push   %rbp
+   1:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 8 <cleanup_module+0x8>
+   8:	48 89 e5             	mov    %rsp,%rbp
+   b:	48 85 ff             	test   %rdi,%rdi
+   e:	74 05                	je     15 <cleanup_module+0x15>
+  10:	e8 00 00 00 00       	callq  15 <cleanup_module+0x15>
+  15:	8b 35 00 00 00 00    	mov    0x0(%rip),%esi        # 1b <cleanup_module+0x1b>
+  1b:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 22 <cleanup_module+0x22>
+  22:	e8 00 00 00 00       	callq  27 <cleanup_module+0x27>
+  27:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+  2e:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 35 <cleanup_module+0x35>
+  35:	e8 00 00 00 00       	callq  3a <cleanup_module+0x3a>
+  3a:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 41 <cleanup_module+0x41>
+  41:	e8 00 00 00 00       	callq  46 <cleanup_module+0x46>
+  46:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  4d:	e8 00 00 00 00       	callq  52 <cleanup_module+0x52>
+  52:	be 01 00 00 00       	mov    $0x1,%esi
+  57:	8b 3d 00 00 00 00    	mov    0x0(%rip),%edi        # 5d <cleanup_module+0x5d>
+  5d:	e8 00 00 00 00       	callq  62 <cleanup_module+0x62>
+  62:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  69:	31 c0                	xor    %eax,%eax
+  6b:	e8 00 00 00 00       	callq  70 <cleanup_module+0x70>
+  70:	c9                   	leaveq 
+  71:	c3                   	retq   
